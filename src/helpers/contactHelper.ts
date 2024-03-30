@@ -142,16 +142,20 @@ export const verifyAndCreateSecondaryContact = async (
         updateContact(secondaryContactParams);
       });
     } else {
+      let flag = 1;
       contactArray.forEach((contact) => {
         if (
-          (contactBody.email !== contact.email && contactBody.email !== null) ||
-          (contactBody.phoneNumber !== contact.phoneNumber &&
-            contactBody.phoneNumber !== null)
+          (contactBody.email === contact.email || contactBody.email === null) &&
+          (contactBody.phoneNumber === contact.phoneNumber ||
+            contactBody.phoneNumber === null)
         ) {
-          // create secondary contact
-          createSecondaryContact(contactBody, primaryContact);
+          flag = 0;
         }
       });
+      // create secondary contact
+      if (flag) {
+        createSecondaryContact(contactBody, primaryContact);
+      }
     }
   } catch (error: any) {
     if (error instanceof ErrorException) throw error;
