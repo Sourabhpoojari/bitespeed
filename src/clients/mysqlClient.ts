@@ -16,6 +16,7 @@ class MysqlClient {
         database: process.env.MYSQL_DATABASE,
         port: parseInt(process.env.MYSQL_PORT as string),
       });
+
       console.info(
         `${APP_INSTANCE_ID}: ${fileName} -> Db connection established!`
       );
